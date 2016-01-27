@@ -17,7 +17,8 @@ gulp.task('serve', function() {
       "./**/*.css",
       "./**/*.sass",
       "./**/*.scss",
-      "./**/*.less"
+      "./**/*.less",
+      "./**/*.styl"
     ], function() {
       bs.reload("main.css", {
         stream: true
@@ -26,11 +27,12 @@ gulp.task('serve', function() {
 
     gulp.watch([
       "./**/*.html",
+      "./**/*.md",
       "./**/*.ejs",
       "./**/*.jade",
       "./**/*.js",
       "./**/*.json",
-      "./**/*.md"
+      "./**/*.coffee"
     ], function() {
       bs.reload();
     });
