@@ -79,14 +79,16 @@ function displayBoard(board) {
   });
 }
 
-function computerTurn(board) {
-  for (var i=0; i<board.length; i++) {
-    if (board[i] === '') {
-      board[i] = O;
-      return board;
+function computerTurn(board, side) {
+  var empty_positions = getEmptyPositions(board);
+  var position = empty_positions[Math.floor(Math.random() * empty_positions.length)];
+  return board.map(function(e, i) {
+    if (i === position) {
+      return side;
+    } else {
+      return e;
     }
-  }
-  return board;
+  });
 }
 
 var game_state = {
@@ -101,7 +103,7 @@ $('.tile').click(function() {
     var tile_num = this.dataset.tileNumber;
     game_state.board[tile_num] = game_state.player_side;
     displayBoard(game_state.board);
-    game_state.board = computerTurn(game_state.board);
+    game_state.board = computerTurn(game_state.board, O);
     displayBoard(game_state.board);
   }
 });
