@@ -111,7 +111,11 @@ $('.tile').click(function() {
       game_state.player_side = X;
       game_state.computer_side = O;
     }
-    var tile_num = this.dataset.tileNumber;
+    var tile_num = parseInt(this.dataset.tileNumber);
+    if (getEmptyPositions(game_state.board).indexOf(tile_num) === -1) {
+      game_state.waiting_for_player = true;
+      return;
+    }
     game_state.board[tile_num] = game_state.player_side;
     displayBoard(game_state.board);
     if (checkWinner(game_state.board)) {
