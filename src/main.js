@@ -101,20 +101,43 @@ function getNewGameState() {
   };
 }
 
-var game_state = getNewGameState();
-
 $('.tile').click(function() {
   if (game_state.waiting_for_player) {
+    game_state.waiting_for_player = false;
+    if (getEmptyPositions(game_state.board).length === 9) {
+      $('#status').html('');
+      game_state.player_side = X;
+      game_state.computer_side = O;
+    }
     var tile_num = this.dataset.tileNumber;
     game_state.board[tile_num] = game_state.player_side;
     displayBoard(game_state.board);
-    game_state.board = computerTurn(game_state.board, O);
+    if (checkWinner(game_state.board)) {
+      $('#status').html(playerEntity(checkWinner(game_state.board)) + ' WON!');
+      return;
+    }
+    game_state.board = computerTurn(game_state.board, game_state.computer_side);
     displayBoard(game_state.board);
+    if (checkWinner(game_state.board)) {
+      $('#status').html(playerEntity(checkWinner(game_state.board)) + ' WON!');
+      return;
+    }
+    game_state.waiting_for_player = true;
   }
 });
 
+$('#status').on('click', '#computer_first', function() {
+  game_state.waiting_for_player = false;
+  $('#status').html('');
+  game_state.computer_side = X;
+  game_state.player_side = O;
+  game_state.board = computerTurn(game_state.board, game_state.computer_side);
+  displayBoard(game_state.board);
+  game_state.waiting_for_player = true;
+});
 
-// test
-
-game_state.player_side = X;
+var game_state = getNewGameState();
+displayBoard(game_state.board);
+$('#status').html('Make your move, or let the computer go first.');
+$('#status').append('<br /><button id="computer_first">Let the computer go first.</button>');
 game_state.waiting_for_player = true;
