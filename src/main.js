@@ -22,6 +22,15 @@ function getNewBoard() {
   return board;
 }
 
+function getEmptyPositions(board) {
+  return board.reduce(function(prev, curr, i) {
+    if (curr.length === 0) {
+      prev.push(i);
+    }
+    return prev;
+  }, []);
+}
+
 function checkWinner(board) {
   var sequences = [
     [0, 1, 2],
