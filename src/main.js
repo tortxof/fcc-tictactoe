@@ -91,12 +91,17 @@ function computerTurn(board, side) {
   });
 }
 
-var game_state = {
-  in_progress: false,
-  player_side: null,
-  waiting_for_player: false,
-  board: getNewBoard()
-};
+function getNewGameState() {
+  return {
+    in_progress: false,
+    player_side: null,
+    computer_side: null,
+    waiting_for_player: false,
+    board: getNewBoard()
+  };
+}
+
+var game_state = getNewGameState();
 
 $('.tile').click(function() {
   if (game_state.waiting_for_player) {
