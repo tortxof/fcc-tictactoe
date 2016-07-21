@@ -1,3 +1,16 @@
+/*
+Board layout
+
++---+---+---+
+| 0 | 1 | 2 |
++---+---+---+
+| 3 | 4 | 5 |
++---+---+---+
+| 6 | 7 | 8 |
++---+---+---+
+
+*/
+
 var X = 'X';
 var O = 'O';
 
@@ -7,6 +20,37 @@ function getNewBoard() {
     board.push('');
   }
   return board;
+}
+
+function checkWinner(board) {
+  var sequences = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+  var board_sequences = sequences.map(function(sequence) {
+    return sequence.map(function(e) {
+      return board[e];
+    });
+  });
+
+  var winning_sequences = board_sequences.filter(function(sequence) {
+    return sequence.every(function(e) {
+      return e === sequence[0] && e.length > 0;
+    });
+  });
+
+  if (winning_sequences.length > 0) {
+    return winning_sequences[0][0];
+  } else {
+    return false;
+  }
 }
 
 function playerEntity(playerStr) {
