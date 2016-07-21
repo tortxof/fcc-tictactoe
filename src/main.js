@@ -14,6 +14,8 @@ Board layout
 var X = 'X';
 var O = 'O';
 
+var game_state;
+
 function getNewBoard() {
   var board = [];
   for (var i=0; i<9; i++) {
@@ -114,12 +116,14 @@ $('.tile').click(function() {
     displayBoard(game_state.board);
     if (checkWinner(game_state.board)) {
       $('#status').html(playerEntity(checkWinner(game_state.board)) + ' WON!');
+      window.setTimeout(resetGame, 2000);
       return;
     }
     game_state.board = computerTurn(game_state.board, game_state.computer_side);
     displayBoard(game_state.board);
     if (checkWinner(game_state.board)) {
       $('#status').html(playerEntity(checkWinner(game_state.board)) + ' WON!');
+      window.setTimeout(resetGame, 2000);
       return;
     }
     game_state.waiting_for_player = true;
@@ -136,8 +140,12 @@ $('#status').on('click', '#computer_first', function() {
   game_state.waiting_for_player = true;
 });
 
-var game_state = getNewGameState();
-displayBoard(game_state.board);
-$('#status').html('Make your move, or let the computer go first.');
-$('#status').append('<br /><button id="computer_first">Let the computer go first.</button>');
-game_state.waiting_for_player = true;
+function resetGame() {
+  game_state = getNewGameState();
+  displayBoard(game_state.board);
+  $('#status').html('Make your move, or let the computer go first.');
+  $('#status').append('<br /><button id="computer_first">Let the computer go first.</button>');
+  game_state.waiting_for_player = true;
+}
+
+resetGame();
