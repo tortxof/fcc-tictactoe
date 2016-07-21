@@ -130,6 +130,11 @@ $('.tile').click(function() {
       window.setTimeout(resetGame, 2000);
       return;
     }
+    if (getEmptyPositions(game_state.board).length === 0) {
+      $('#status').html('Draw!');
+      window.setTimeout(resetGame, 2000);
+      return;
+    }
     game_state.waiting_for_player = true;
   }
 });
