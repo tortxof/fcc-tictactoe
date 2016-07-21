@@ -2,15 +2,20 @@ h1
   text-align: center
 
 .game_board
+  user-select: none
   width: 294px
+  height: 294px
   margin: 0 auto
   background-color: black
   box-shadow: inset 0 0 0 1px white
 
+.row
+  clear: both
+
 .tile
-  user-select: none
   font-size: 64px
-  display: inline-flex
+  display: flex
+  float: left
   align-items: center
   justify-content: center
   vertical-align: bottom
