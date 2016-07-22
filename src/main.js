@@ -152,8 +152,10 @@ $('#status').on('click', '#computer_first', function() {
 function resetGame() {
   game_state = getNewGameState();
   displayBoard(game_state.board);
-  $('#status').html('Make your move, or let the computer go first.');
-  $('#status').append('<br /><button id="computer_first">Let the computer go first.</button>');
+  $('#status').html(
+    'Make your move, or<br />' +
+    '<button id="computer_first">let the computer go first.</button>'
+  );
   game_state.waiting_for_player = true;
 }
 
