@@ -44,12 +44,16 @@ function getEmptyPositions(board) {
   }, []);
 }
 
-function checkWinner(board) {
-  var board_sequences = SEQUENCES.map(function(sequence) {
+function getBoardSequences(board) {
+  return SEQUENCES.map(function(sequence) {
     return sequence.map(function(e) {
       return board[e];
     });
   });
+}
+
+function checkWinner(board) {
+  var board_sequences = getBoardSequences(board);
 
   var winning_sequences = board_sequences.filter(function(sequence) {
     return sequence.every(function(e) {
