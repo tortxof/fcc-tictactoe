@@ -101,9 +101,13 @@ function getOneMoveWins(board, side) {
 function computerTurn(board, side) {
   var empty_positions = getEmptyPositions(board);
   var winning_positions = getOneMoveWins(board, side);
+  var opponent_side = side === X ? O : X;
+  var blocking_positons = getOneMoveWins(board, opponent_side);
   var position;
   if (winning_positions.length > 0) {
     position = winning_positions[0];
+  } else if (blocking_positons.length > 0) {
+    position = blocking_positons[0];
   } else {
     position = empty_positions[Math.floor(Math.random() * empty_positions.length)];
   }
