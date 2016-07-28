@@ -85,9 +85,8 @@ function displayBoard(board) {
   });
 }
 
-function computerTurn(board, side) {
-  var empty_positions = getEmptyPositions(board);
-  var winning_positions = empty_positions.filter(function(position) {
+function getOneMoveWins(board, side) {
+  return getEmptyPositions(board).filter(function(position) {
     var test_board = board.map(function(e, i) {
       if (position === i) {
         return side;
@@ -97,6 +96,11 @@ function computerTurn(board, side) {
     });
     return checkWinner(test_board) === side;
   });
+}
+
+function computerTurn(board, side) {
+  var empty_positions = getEmptyPositions(board);
+  var winning_positions = getOneMoveWins(board, side);
   var position;
   if (winning_positions.length > 0) {
     position = winning_positions[0];
