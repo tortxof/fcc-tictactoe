@@ -87,7 +87,22 @@ function displayBoard(board) {
 
 function computerTurn(board, side) {
   var empty_positions = getEmptyPositions(board);
-  var position = empty_positions[Math.floor(Math.random() * empty_positions.length)];
+  var winning_positions = empty_positions.filter(function(position) {
+    var test_board = board.map(function(e, i) {
+      if (position === i) {
+        return side;
+      } else {
+        return e;
+      }
+    });
+    return checkWinner(test_board) === side;
+  });
+  var position;
+  if (winning_positions.length > 0) {
+    position = winning_positions[0];
+  } else {
+    position = empty_positions[Math.floor(Math.random() * empty_positions.length)];
+  }
   return board.map(function(e, i) {
     if (i === position) {
       return side;
